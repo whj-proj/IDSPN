@@ -13,7 +13,7 @@ train_dataset:
       inp_size: 64
       scale_max: 4
       augment: true
-      sample_q: 4096
+      sample_q: 4096  ### cancel for SPN
   batch_size: 8
 
 tag: Normal
@@ -32,7 +32,7 @@ val_dataset:
     args:
       inp_size: 64
       scale_max: 4
-      sample_q: 4096
+      sample_q: 4096  ### cancel for SPN
   batch_size: 1
 
 data_norm:
