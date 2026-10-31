@@ -1,0 +1,73 @@
+train_dataset:
+  dataset:
+    name: mc-image-folders
+    args:
+      root_path_1: /workspace/IVDM3Seg/train/wat
+      root_path_2: /workspace/IVDM3Seg/train/fat
+      first_k: 64
+      repeat: 1
+      cache: in_memory
+  wrapper:
+    name: sr-implicit-downsampled
+    args:
+      inp_size: 64
+      scale_max: 4
+      augment: true
+      sample_q: 4096
+  batch_size: 8
+
+tag: Normal
+
+val_dataset:
+  dataset:
+    name: mc-image-folders
+    args:
+      root_path_1: /workspace/IVDM3Seg/val/wat
+      root_path_2: /workspace/IVDM3Seg/val/fat
+      first_k: 16
+      repeat: 1
+      cache: in_memory
+  wrapper:
+    name: sr-implicit-downsampled
+    args:
+      inp_size: 64
+      scale_max: 4
+      sample_q: 4096
+  batch_size: 8
+
+data_norm:
+  inp: {sub: [0.5], div: [0.5]}
+  ref: {sub: [0.5], div: [0.5]}
+  gt: {sub: [0.5], div: [0.5]}
+
+
+
+model:
+   name: ISPN
+   args:
+     encoder_spec:
+       name: rdn
+       args:
+         no_upsampling: true
+     imnet_spec:
+       name: mlp
+       args:
+         out_dim: 1
+         hidden_list: [256, 256, 256]
+     hidden_dim: 256
+
+
+optimizer:
+  name: adam
+  args:
+    lr: 2.e-4
+epoch_max: 1000
+multi_step_lr:
+  milestones: [500, 800, 900, 950]
+  gamma: 0.5
+
+epoch_val: 1
+epoch_save: 100
+
+resume: ~
+
