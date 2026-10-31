@@ -4,7 +4,7 @@ train_dataset:
     args:
       root_path_1: /workspace/IXI/train/T2
       root_path_2: /workspace/IXI/train/PD
-      first_k: 64
+      first_k: 64 ### cancel for SPN
       repeat: 1
       cache: in_memory
   wrapper:
@@ -24,7 +24,7 @@ val_dataset:
     args:
       root_path_1: /workspace/IXI/test/T2
       root_path_2: /workspace/IXI/test/PD
-      first_k: 16
+      first_k: 16 ### cancel for SPN
       repeat: 1
       cache: in_memory
   wrapper:
